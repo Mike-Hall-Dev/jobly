@@ -3,6 +3,7 @@
 const db = require("../db");
 const { BadRequestError, NotFoundError } = require("../expressError");
 const { sqlForPartialUpdate } = require("../helpers/sql");
+const { checkIfAdmin } = require('../middleware/auth')
 
 /** Related functions for companies. */
 
