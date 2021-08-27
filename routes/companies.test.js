@@ -10,6 +10,7 @@ const {
   commonBeforeEach,
   commonAfterEach,
   commonAfterAll,
+  testJobIds,
   u1Token,
   adminToken,
 } = require("./_testCommon");
@@ -129,27 +130,49 @@ describe("GET /companies", function () {
 describe("GET /companies/:handle", function () {
   test("works for anon", async function () {
     const resp = await request(app).get(`/companies/c1`);
+    console.log(resp.body)
     expect(resp.body).toEqual({
-      company: {
-        handle: "c1",
-        name: "C1",
-        description: "Desc1",
-        numEmployees: 1,
-        logoUrl: "http://c1.img",
-      },
+      "company": {
+        "handle": "c1",
+        "name": "C1",
+        "description": "Desc1",
+        "numEmployees": 1,
+        "logoUrl": "http://c1.img",
+        "jobs": [
+          {
+            "id": testJobIds[0],
+            "title": "test1",
+            "salary": 10000,
+            "equity": "0.5"
+          },
+          {
+            "id": testJobIds[1],
+            "title": "test3",
+            "salary": 40000,
+            "equity": null
+          },
+          {
+            "id": testJobIds[2],
+            "title": "test4",
+            "salary": null,
+            "equity": "0.8"
+          }
+        ]
+      }
     });
   });
 
   test("works for anon: company w/o jobs", async function () {
     const resp = await request(app).get(`/companies/c2`);
     expect(resp.body).toEqual({
-      company: {
-        handle: "c2",
-        name: "C2",
-        description: "Desc2",
-        numEmployees: 2,
-        logoUrl: "http://c2.img",
-      },
+      "company": {
+        "handle": "c2",
+        "name": "C2",
+        "description": "Desc2",
+        "numEmployees": 2,
+        "logoUrl": "http://c2.img",
+        "jobs": []
+      }
     });
   });
 

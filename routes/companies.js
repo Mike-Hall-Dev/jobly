@@ -54,6 +54,7 @@ router.post("/", checkIfAdmin, async function (req, res, next) {
 router.get("/", async function (req, res, next) {
   // Checks req object for query params and saves that object to a variable
   const optionalFilters = req.query;
+  console.log(optionalFilters)
 
   try {
     if (optionalFilters.minEmployees) {

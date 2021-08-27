@@ -3,7 +3,6 @@
 const db = require("../db");
 const { BadRequestError, NotFoundError } = require("../expressError");
 const { sqlForPartialUpdate } = require("../helpers/sql");
-const { checkIfAdmin } = require('../middleware/auth')
 
 /** Related functions for companies. */
 
@@ -111,8 +110,14 @@ class Company {
       [handle]);
 
     const company = companyRes.rows[0];
-
     if (!company) throw new NotFoundError(`No company: ${handle}`);
+
+    //Best way to add jobs onto company is to query the jobs table using the handle
+    const jobResult = await db.query(
+      `SELECT id,title,salary,equity FROM jobs WHERE company_handle = $1
+      ORDER BY title`, [handle]);
+
+    company.jobs = jobResult.rows;
 
     return company;
   }
