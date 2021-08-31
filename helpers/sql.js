@@ -5,7 +5,7 @@ const { BadRequestError } = require("../expressError");
  * The function expects two parameters, both of which should be objects
  * 
  * dataToUpdate should contain fields and values where the fields are attributes 
- * of the model being updated and values being the new values change to. This data
+ * of the model being updated and values being the new values to change to. This data
  * will be pulled from the request body.
  *      Example = {username: New Username, email: New@email.com}
  * 

@@ -47,7 +47,7 @@ router.post("/", checkIfAdmin, async function (req, res, next) {
 
 router.get("/", async function (req, res, next) {
 
-    const filters = req.query
+    const filters = req.query;
     if (filters.minSalary) {
         filters.minSalary = Number(filters.minSalary)
     }

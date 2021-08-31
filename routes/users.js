@@ -118,5 +118,20 @@ router.delete("/:username", checkIfUserOrAdmin, async function (req, res, next) 
   }
 });
 
+/** POST /:username/jobs/:id
+ * 
+ * returns {"applied": jodID}
+ */
+
+router.post("/:username/jobs/:id", checkIfUserOrAdmin, async function (req, res, next) {
+  try {
+    const jobId = Number(req.params.id);
+    await User.apply(req.params.username, jobId);
+    return res.json({ applied: jobId })
+  } catch (err) {
+    return next(err)
+  }
+})
+
 
 module.exports = router;
